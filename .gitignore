@@ -6,8 +6,15 @@
 *.ear
 
 # Binary directories #
-bin/
+build/
+
+# Local files and directories #
+.classpath
+.gradle
+.project
+.settings
 
 # Swap files #
 *.swp
+*~
 

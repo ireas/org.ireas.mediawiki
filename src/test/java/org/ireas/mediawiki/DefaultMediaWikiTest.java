@@ -1,4 +1,4 @@
-package org.ireas.mediawiki.test;
+package org.ireas.mediawiki;
 
 import java.net.URI;
 import java.net.URISyntaxException;
