@@ -5,16 +5,9 @@ import java.net.URISyntaxException;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import junit.framework.Assert;
-
-import org.ireas.mediawiki.BasicMediaWikiConfiguration;
-import org.ireas.mediawiki.MediaWiki;
-import org.ireas.mediawiki.MediaWikiConfiguration;
-import org.ireas.mediawiki.MediaWikiException;
-import org.ireas.mediawiki.MediaWikiFactory;
-import org.ireas.mediawiki.MediaWikiUtils;
 import org.ireas.mediawiki.data.UserData;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
