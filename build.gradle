@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'checkstyle'
 
-version = '0.1'
+version = '0.2b'
 
 repositories {
     mavenCentral()
@@ -32,6 +32,16 @@ javadoc {
     	"http://json.org/javadoc/"
     )
   }
+}
+
+task javadocJar (type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+task sourceJar (type : Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
 }
 
 checkstyle {
