@@ -34,6 +34,10 @@ javadoc {
   }
 }
 
+checkstyle {
+	sourceSets = [sourceSets.main]
+}
+
 task checkstyleReport << {
 	if (file("$buildDir/reports/checkstyle/${checkType}.xml").exists()) {
 		ant.xslt(

@@ -127,6 +127,13 @@ public final class MediaWikiUtils {
         }
     }
 
+    /**
+     * Converts the specified date to a timestamp in the MediaWiki API format
+     * and in the UTC time zone.
+     *
+     * @param date the date to convert
+     * @return the specified date as a UTC timestamp
+     */
     public static String formatApiDate(final DateTime date) {
         Preconditions.checkNotNull(date);
 
@@ -146,8 +153,8 @@ public final class MediaWikiUtils {
     }
 
     /**
-     * Constructs a list of {@code NameValuePair} objects from {@code arguments}.
-     *
+     * Constructs a list of {@code NameValuePair} objects from {@code
+     * arguments}.
      *
      * @param arguments
      *            the map to be converted to a list of {@code NameValuePair}
@@ -191,8 +198,19 @@ public final class MediaWikiUtils {
         return API_TIMESTAMP_FORMAT.parseDateTime(timeStamp);
     }
 
+    /**
+     * Ensures that the specified fields are set in the specified JSON object.
+     * If one or more fields are not set, a {@code InvalidResponseException}
+     * is thrown.
+     *
+     * @param object the JSON object to check
+     * @param fields the required fields
+     * @throws InvalidResponseException if one or more of the specified
+     *         required fields are not present in the specified JSON
+     *         object
+     */
     public static void requireJsonFields(final JSONObject object,
-            final String... fields) throws InvalidResponseException {
+            final String... fields) {
         for (String field : fields) {
             if (!object.has(field)) {
                 throw new InvalidResponseException(String.format(
@@ -201,8 +219,18 @@ public final class MediaWikiUtils {
         }
     }
 
+    /**
+     * Ensures that the specified JSON array has the specified minimum length.
+     * If the specified array is too short, a {@code InvalidResponseException}
+     * is thrown.
+     *
+     * @param array the JSON array to check
+     * @param requiredLength the minimum length of the array
+     * @throws InvalidResponseException if the JSON array does not have the
+     *         specified minimum length
+     */
     public static void requireJsonLength(final JSONArray array,
-            final int requiredLength) throws InvalidResponseException {
+            final int requiredLength) {
         if (array.length() < requiredLength) {
             throw new InvalidResponseException();
         }

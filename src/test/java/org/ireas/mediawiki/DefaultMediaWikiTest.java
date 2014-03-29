@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
-import org.ireas.mediawiki.data.UserData;
 import org.ireas.mediawiki.exceptions.MediaWikiException;
 import org.ireas.mediawiki.exceptions.NoSuchUserException;
 import org.joda.time.DateTime;

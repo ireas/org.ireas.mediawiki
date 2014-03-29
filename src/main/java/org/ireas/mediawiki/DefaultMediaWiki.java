@@ -19,7 +19,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.ireas.mediawiki.data.UserData;
 import org.ireas.mediawiki.exceptions.HttpMediaWikiException;
 import org.ireas.mediawiki.exceptions.MediaWikiException;
 import org.ireas.mediawiki.exceptions.NoSuchUserException;
@@ -31,6 +30,14 @@ import org.json.JSONObject;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 
+/**
+ * Default implementation of the {@code MediaWiki} interfaces.  This class
+ * uses the Apache HTTPComponents library to access the MediaWiki API.  It
+ * is recommended to use the {@link MediaWikiFactory} to create new {@code
+ * MediaWiki} instances instead of accessing this class directly.
+ *
+ * @author ireas
+ */
 public final class DefaultMediaWiki implements MediaWiki {
 
     private static final String HEADER_USER_AGENT = "User-Agent";
@@ -41,6 +48,17 @@ public final class DefaultMediaWiki implements MediaWiki {
 
     private final CloseableHttpClient httpClient;
 
+    /**
+     * Constructs a new MediaWiki instance for the {@code api.php} file
+     * located at the specified URI and using the specified configuration.
+     * It is recommended to use the {@link MediaWikiFactory} instead of
+     * this constructor.
+     *
+     * @param apiUri the URI pointing to the MediaWiki API
+     * @param configuration the configuration for the API request
+     * @throws NullPointerException if the specified URI or configuration is
+     *         null
+     */
     public DefaultMediaWiki(final URI apiUri,
             final MediaWikiConfiguration configuration) {
         Preconditions.checkNotNull(apiUri);
@@ -77,10 +95,10 @@ public final class DefaultMediaWiki implements MediaWiki {
     public int getContribCount(final String user, final int limit)
             throws MediaWikiException {
         Preconditions.checkNotNull(user);
-
         Preconditions.checkArgument(limit > 0);
 
-        return getContribCount(user, limit, Collections.<Namespace> emptySet());
+        Set<Namespace> namespaces = Collections.emptySet();
+        return getContribCount(user, limit, namespaces);
     }
 
     @Override
@@ -88,10 +106,11 @@ public final class DefaultMediaWiki implements MediaWiki {
             final Set<Namespace> namespaces) throws MediaWikiException {
         Preconditions.checkNotNull(user);
         Preconditions.checkNotNull(namespaces);
-
         Preconditions.checkArgument(limit > 0);
 
-        return getContribCount(getContribCountArguments(user, limit, namespaces));
+        Map<String, String> arguments =
+                getContribCountArguments(user, limit, namespaces);
+        return getContribCount(arguments);
     }
 
     @Override
@@ -101,11 +120,11 @@ public final class DefaultMediaWiki implements MediaWiki {
         Preconditions.checkNotNull(user);
         Preconditions.checkNotNull(namespaces);
         Preconditions.checkNotNull(endDate);
-
         Preconditions.checkArgument(limit > 0);
 
-        return getContribCount(getContribCountArguments(user, limit,
-                namespaces, endDate));
+        Map<String, String> arguments =
+                getContribCountArguments(user, limit, namespaces, endDate);
+        return getContribCount(arguments);
     }
 
     @Override
@@ -116,11 +135,12 @@ public final class DefaultMediaWiki implements MediaWiki {
         Preconditions.checkNotNull(namespaces);
         Preconditions.checkNotNull(endDate);
         Preconditions.checkNotNull(period);
-
         Preconditions.checkArgument(limit > 0);
 
-        return getContribCount(getContribCountArguments(user, limit,
-                namespaces, endDate, period));
+        Map<String, String> arguments =
+                getContribCountArguments(user, limit, namespaces, endDate,
+                        period);
+        return getContribCount(arguments);
     }
 
     private Map<String, String> getContribCountArguments(final String user,
@@ -146,8 +166,8 @@ public final class DefaultMediaWiki implements MediaWiki {
             final DateTime endDate) {
         Map<String, String> arguments =
                 getContribCountArguments(user, limit, namespaces);
-        arguments.put(ApiConstants.UC_END,
-                MediaWikiUtils.formatApiDate(endDate));
+        arguments.put(ApiConstants.UC_END, MediaWikiUtils
+                .formatApiDate(endDate));
         return arguments;
     }
 
@@ -156,8 +176,8 @@ public final class DefaultMediaWiki implements MediaWiki {
             final DateTime endDate, final Period period) {
         Map<String, String> arguments =
                 getContribCountArguments(user, limit, namespaces, endDate);
-        arguments.put(ApiConstants.UC_START,
-                MediaWikiUtils.formatApiDate(endDate.minus(period)));
+        arguments.put(ApiConstants.UC_START, MediaWikiUtils
+                .formatApiDate(endDate.minus(period)));
         return arguments;
     }
 
@@ -194,8 +214,7 @@ public final class DefaultMediaWiki implements MediaWiki {
     }
 
     @Override
-    public UserData getUserData(final String user) throws NoSuchUserException,
-            MediaWikiException {
+    public UserData getUserData(final String user) throws MediaWikiException {
         Preconditions.checkNotNull(user);
 
         Map<String, String> arguments = new HashMap<>();
