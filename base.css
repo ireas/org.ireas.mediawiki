@@ -1,0 +1,54 @@
+body {
+    font-family: Arimo, "Liberation Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: color: rgb(37, 37, 37);
+    font-size: 12px;
+
+    max-width: 800px;
+    margin-left: 100px;
+    margin-right: 50px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Linux Libertine", Georgia, Times, serif;
+    color: black;
+    font-weight: normal;
+    border-bottom: 1px solid lightgrey;
+    line-height: 20pt;
+}
+
+h1 {
+    font-size: 1.8em;
+    line-height: 30pt;
+}
+
+pre, code {
+    font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+.box {
+    background-color: #D9EDF7;
+    border-color: #BCE8F1;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 5px 15px 5px 15px;
+}
+
+.box h2 {
+    border: 0px;
+    font-weight: bold;
+    font-family: Arimo, "Liberation Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1.2em;
+}
+
+
+a, a:hover {
+    color: rgb(6, 69, 173);
+}
+
+.external {
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAVElEQVR42n3PgQkAIAhEUXdqJ3dqJ3e6IoTPUSQcgj4EQ5IlUiLE0Jil3PECXhcHGBhZ8kg4hwxAu3MZeCGeyFnAXp4hqNQPnt7QL0nADpD6wHccLvnAKksq8iiaAAAAAElFTkSuQmCC");
+    padding-right: 13px;
+}
+
