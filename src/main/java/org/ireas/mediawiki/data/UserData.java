@@ -1,4 +1,4 @@
-package org.ireas.mediawiki;
+package org.ireas.mediawiki.data;
 
 import org.joda.time.DateTime;
 
@@ -10,7 +10,11 @@ import com.google.common.base.Preconditions;
  *
  * @author ireas
  */
-public final class UserData {
+public final class UserData implements Comparable<UserData> {
+
+    private static final int HASH_SALT = 17;
+
+    private static final int HASH_MULTIPLIER = 31;
 
     private final String userName;
 
@@ -40,6 +44,28 @@ public final class UserData {
         this.registrationDate = registrationDate;
     }
 
+    @Override
+    public int compareTo(final UserData userData) {
+        Preconditions.checkNotNull(userData);
+        return Integer.compare(getUserId(), userData.getUserId());
+    }
+
+    @Override
+    public boolean equals(final Object object) {
+        if (object == null) {
+            return false;
+        }
+        if (this == object) {
+            return true;
+        }
+        if (!(object instanceof UserData)) {
+            return false;
+        }
+        UserData userData = (UserData) object;
+        return getUserId() == userData.getUserId()
+                && getUserName().equals(getUserName());
+    }
+
     /**
      * Returns the user’s registration date.
      *
@@ -67,9 +93,17 @@ public final class UserData {
         return userName;
     }
 
+    @Override
+    public int hashCode() {
+        int hashCode = HASH_SALT;
+        hashCode = HASH_MULTIPLIER * hashCode + getUserId();
+        hashCode = HASH_MULTIPLIER * hashCode + getUserName().hashCode();
+        return hashCode;
+    }
+
     /**
      * Returns a string representation of this object.  The string
-     * representation of the user date contains all information about the
+     * representation of the user data contains all information about the
      * user in a human-readable format.
      *
      * @return a string representation of this object

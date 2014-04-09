@@ -15,5 +15,7 @@
  * mediaWiki.getFirstEdit("Ireas");
  * </pre>
  */
+@ParametersAreNonnullByDefault
 package org.ireas.mediawiki;
 
+import javax.annotation.ParametersAreNonnullByDefault;

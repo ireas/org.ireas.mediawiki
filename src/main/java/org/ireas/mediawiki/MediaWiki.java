@@ -1,10 +1,11 @@
 package org.ireas.mediawiki;
 
 import java.io.Closeable;
-import java.net.URI;
 import java.util.Map;
 import java.util.Set;
 
+import org.ireas.mediawiki.data.MediaWikiData;
+import org.ireas.mediawiki.data.UserData;
 import org.ireas.mediawiki.exceptions.HttpMediaWikiException;
 import org.ireas.mediawiki.exceptions.InvalidResponseException;
 import org.ireas.mediawiki.exceptions.MediaWikiException;
@@ -49,14 +50,6 @@ import com.google.common.base.Optional;
  * @see MediaWikiFactory
  */
 public interface MediaWiki extends Closeable {
-
-    /**
-     * Returns the URI of the {@code api.php} file used by this {@code
-     * MediaWiki} instance.
-     *
-     * @return the API URI
-     */
-    URI getApiUri();
 
     /**
      * Returns the contribution count for the specified user using
@@ -159,6 +152,14 @@ public interface MediaWiki extends Closeable {
      * @throws NullPointerException if the specified user is null
      */
     Optional<DateTime> getFirstEdit(String user) throws MediaWikiException;
+
+    /**
+     * Returns the data of the MediaWiki installation that is accessed by this
+     * object.
+     *
+     * @return the data of the MediaWiki installation to access
+     */
+    MediaWikiData getMediaWikiData();
 
     /**
      * Returns the user date for the user with the given name.  The user data

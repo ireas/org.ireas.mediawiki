@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
+import org.ireas.mediawiki.data.UserData;
 import org.ireas.mediawiki.exceptions.MediaWikiException;
 import org.ireas.mediawiki.exceptions.NoSuchUserException;
 import org.joda.time.DateTime;
@@ -42,7 +43,7 @@ public class DefaultMediaWikiTest {
     @Test
     public void testGetApiUri() throws URISyntaxException {
         Assert.assertEquals(new URI("https://de.wikipedia.org:443/w/api.php"),
-                mediaWiki.getApiUri());
+                mediaWiki.getMediaWikiData().getApiUri());
     }
 
     @Test

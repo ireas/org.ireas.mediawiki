@@ -2,7 +2,6 @@ package org.ireas.mediawiki;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URI;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +18,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.ireas.mediawiki.data.MediaWikiData;
+import org.ireas.mediawiki.data.UserData;
 import org.ireas.mediawiki.exceptions.HttpMediaWikiException;
 import org.ireas.mediawiki.exceptions.MediaWikiException;
 import org.ireas.mediawiki.exceptions.NoSuchUserException;
@@ -42,29 +43,29 @@ public final class DefaultMediaWiki implements MediaWiki {
 
     private static final String HEADER_USER_AGENT = "User-Agent";
 
-    private final URI apiUri;
+    private final MediaWikiData mediaWikiData;
 
     private final MediaWikiConfiguration configuration;
 
     private final CloseableHttpClient httpClient;
 
     /**
-     * Constructs a new MediaWiki instance for the {@code api.php} file
-     * located at the specified URI and using the specified configuration.
-     * It is recommended to use the {@link MediaWikiFactory} instead of
-     * this constructor.
+     * Constructs a new MediaWiki instance for the MediaWiki installation
+     * representend by the specified MediaWiki data and using the specified
+     * configuration.  It is recommended to use the {@link MediaWikiFactory}
+     * instead of this constructor.
      *
-     * @param apiUri the URI pointing to the MediaWiki API
+     * @param mediaWikiData the data of the MediaWiki installation to access
      * @param configuration the configuration for the API request
      * @throws NullPointerException if the specified URI or configuration is
      *         null
      */
-    public DefaultMediaWiki(final URI apiUri,
+    public DefaultMediaWiki(final MediaWikiData mediaWikiData,
             final MediaWikiConfiguration configuration) {
-        Preconditions.checkNotNull(apiUri);
+        Preconditions.checkNotNull(mediaWikiData);
         Preconditions.checkNotNull(configuration);
 
-        this.apiUri = apiUri;
+        this.mediaWikiData = mediaWikiData;
         this.configuration = configuration;
 
         httpClient = HttpClients.createDefault();
@@ -73,11 +74,6 @@ public final class DefaultMediaWiki implements MediaWiki {
     @Override
     public void close() throws IOException {
         httpClient.close();
-    }
-
-    @Override
-    public URI getApiUri() {
-        return apiUri;
     }
 
     private int getContribCount(final Map<String, String> arguments)
@@ -214,6 +210,11 @@ public final class DefaultMediaWiki implements MediaWiki {
     }
 
     @Override
+    public MediaWikiData getMediaWikiData() {
+        return mediaWikiData;
+    }
+
+    @Override
     public UserData getUserData(final String user) throws MediaWikiException {
         Preconditions.checkNotNull(user);
 
@@ -281,7 +282,7 @@ public final class DefaultMediaWiki implements MediaWiki {
             throws MediaWikiException {
         Preconditions.checkNotNull(arguments);
 
-        HttpPost httpPost = new HttpPost(apiUri);
+        HttpPost httpPost = new HttpPost(mediaWikiData.getApiUri());
         List<NameValuePair> nameValuePairs =
                 MediaWikiUtils.mapToNameValuePairs(arguments);
         UrlEncodedFormEntity argumentsEntity;
