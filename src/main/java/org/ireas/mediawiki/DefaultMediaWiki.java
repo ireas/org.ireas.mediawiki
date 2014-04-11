@@ -18,6 +18,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.ireas.mediawiki.data.DefaultMediaWikiData;
+import org.ireas.mediawiki.data.DefaultUserData;
 import org.ireas.mediawiki.data.MediaWikiData;
 import org.ireas.mediawiki.data.UserData;
 import org.ireas.mediawiki.exceptions.HttpMediaWikiException;
@@ -43,7 +45,7 @@ public final class DefaultMediaWiki implements MediaWiki {
 
     private static final String HEADER_USER_AGENT = "User-Agent";
 
-    private final MediaWikiData mediaWikiData;
+    private final DefaultMediaWikiData mediaWikiData;
 
     private final MediaWikiConfiguration configuration;
 
@@ -60,7 +62,7 @@ public final class DefaultMediaWiki implements MediaWiki {
      * @throws NullPointerException if the specified URI or configuration is
      *         null
      */
-    public DefaultMediaWiki(final MediaWikiData mediaWikiData,
+    public DefaultMediaWiki(final DefaultMediaWikiData mediaWikiData,
             final MediaWikiConfiguration configuration) {
         Preconditions.checkNotNull(mediaWikiData);
         Preconditions.checkNotNull(configuration);
@@ -244,7 +246,7 @@ public final class DefaultMediaWiki implements MediaWiki {
         DateTime registrationDate =
                 MediaWikiUtils.parseApiTimestamp(registrationString);
 
-        return new UserData(userName, userId, registrationDate);
+        return new DefaultUserData(userName, userId, registrationDate);
     }
 
     @Override

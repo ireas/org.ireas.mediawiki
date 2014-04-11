@@ -2,7 +2,7 @@ package org.ireas.mediawiki;
 
 import java.net.URI;
 
-import org.ireas.mediawiki.data.MediaWikiData;
+import org.ireas.mediawiki.data.DefaultMediaWikiData;
 import org.ireas.mediawiki.exceptions.MediaWikiException;
 
 import com.google.common.base.Preconditions;
@@ -64,7 +64,7 @@ public final class MediaWikiFactory {
         Preconditions.checkArgument(port >= 0);
 
         URI uri = MediaWikiUtils.buildUri(scheme, host, port, apiPath);
-        MediaWikiData mediaWikiData = new MediaWikiData(uri);
+        DefaultMediaWikiData mediaWikiData = new DefaultMediaWikiData(uri);
         return new DefaultMediaWiki(mediaWikiData, configuration);
     }
 
