@@ -1,5 +1,6 @@
 package org.ireas.mediawiki.data;
 
+import org.ireas.common.HashCodeGenerator;
 import org.joda.time.DateTime;
 
 import com.google.common.base.Preconditions;
@@ -11,10 +12,6 @@ import com.google.common.base.Preconditions;
  * @author ireas
  */
 public final class UserData implements Comparable<UserData> {
-
-    private static final int HASH_SALT = 17;
-
-    private static final int HASH_MULTIPLIER = 31;
 
     private final String userName;
 
@@ -95,10 +92,10 @@ public final class UserData implements Comparable<UserData> {
 
     @Override
     public int hashCode() {
-        int hashCode = HASH_SALT;
-        hashCode = HASH_MULTIPLIER * hashCode + getUserId();
-        hashCode = HASH_MULTIPLIER * hashCode + getUserName().hashCode();
-        return hashCode;
+        HashCodeGenerator generator = new HashCodeGenerator();
+        generator.add(getUserId());
+        generator.add(getUserName());
+        return generator.getHashCode();
     }
 
     /**
