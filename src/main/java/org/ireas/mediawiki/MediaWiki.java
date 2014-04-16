@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.ireas.mediawiki.data.MediaWikiData;
+import org.ireas.mediawiki.data.TokenType;
 import org.ireas.mediawiki.data.UserData;
 import org.ireas.mediawiki.exceptions.HttpMediaWikiException;
 import org.ireas.mediawiki.exceptions.InvalidResponseException;
@@ -183,6 +184,18 @@ public interface MediaWiki extends Closeable {
      * @return the data of the MediaWiki installation to access
      */
     MediaWikiData getMediaWikiData();
+
+    /**
+     * Returns a token of the specified type.
+     *
+     * @param type the type of the token to get
+     * @return a token of the specified type
+     * @throws InvalidResponseException if the API response cannot be parsed
+     * @throws HttpMediaWikiException if an HTTP error occurs
+     * @throws MediaWikiException if an error occurs during the request
+     * @throws NullPointerException if the specified type is null
+     */
+    String getToken(final TokenType type) throws MediaWikiException;
 
     /**
      * Returns the user date for the user with the given name.  The user data

@@ -47,6 +47,11 @@ public final class ApiConstants {
     public static final String ACTION_QUERY = "query";
 
     /**
+     * Name of the action {@code tokens}.
+     */
+    public static final String ACTION_TOKENS = "tokens";
+
+    /**
      * Name of the parameter {@code format}.
      */
     public static final String FORMAT = "format";
@@ -127,6 +132,12 @@ public final class ApiConstants {
     public static final String RESULT_LG_TOKEN = "token";
 
     /**
+     * Key of the result field for a token.  Must be formatted with the token
+     * type.
+     */
+    public static final String RESULT_TOKENS = "%stoken";
+
+    /**
      * Key of the result field {@code usercontribs}.
      */
     public static final String RESULT_USERCONTRIBS = "usercontribs";
@@ -165,6 +176,83 @@ public final class ApiConstants {
      * Separator symbol for parameter values.
      */
     public static final String SEPARATOR = "|";
+
+    /**
+     * Name of the token type {@code block}.
+     */
+    public static final String TOKEN_BLOCK = "block";
+
+    /**
+     * Name of the token type {@code centralauth}.
+     */
+    public static final String TOKEN_CENTRAL_AUTH = "centralauth";
+
+    /**
+     * Name of the token type {@code delete}.
+     */
+    public static final String TOKEN_DELETE = "delete";
+
+    /**
+     * Name of the token type {@code deleteglobalaccount}.
+     */
+    public static final String TOKEN_DELETE_GLOBAL_ACCOUNT =
+            "deleteglobalaccount";
+
+    /**
+     * Name of the token type {@code edit}.
+     */
+    public static final String TOKEN_EDIT = "edit";
+
+    /**
+     * Name of the token type {@code email}.
+     */
+    public static final String TOKEN_EMAIL = "email";
+
+    /**
+     * Name of the token type {@code import}.
+     */
+    public static final String TOKEN_IMPORT = "import";
+
+    /**
+     * Name of the token type {@code move}.
+     */
+    public static final String TOKEN_MOVE = "move";
+
+    /**
+     * Name of the token type {@code options}.
+     */
+    public static final String TOKEN_OPTIONS = "options";
+
+    /**
+     * Name of the token type {@code patrol}.
+     */
+    public static final String TOKEN_PATROL = "patrol";
+
+    /**
+     * Name of the token type {@code protect}.
+     */
+    public static final String TOKEN_PROTECT = "protect";
+
+    /**
+     * Name of the token type {@code setglobalaccountstatus}.
+     */
+    public static final String TOKEN_SET_GLOBAL_ACCOUNT_STATUS =
+            "setglobalaccountstatus";
+
+    /**
+     * Name of the token type {@code unblock}.
+     */
+    public static final String TOKEN_UNBLOCK = "unblock";
+
+    /**
+     * Name of the token type {@code watch}.
+     */
+    public static final String TOKEN_WATCH = "watch";
+
+    /**
+     * Name of the argument {@code type} for the {@code tokens} action.
+     */
+    public static final String TOKENS_TYPE = "type";
 
     /**
      * Name of the argument {@code ucdir}.

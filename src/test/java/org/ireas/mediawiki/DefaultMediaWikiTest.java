@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
+import org.ireas.mediawiki.data.TokenType;
 import org.ireas.mediawiki.data.UserData;
 import org.ireas.mediawiki.exceptions.MediaWikiException;
 import org.ireas.mediawiki.exceptions.NoSuchUserException;
@@ -134,6 +135,13 @@ public class DefaultMediaWikiTest {
     public void testGetFirstEditNoSuchUser() throws MediaWikiException {
         Optional<DateTime> date = mediaWiki.getFirstEdit(USER_NAME_MISSING);
         Assert.assertTrue(!date.isPresent());
+    }
+
+    @Test
+    public void testGetToken() throws MediaWikiException {
+        String token = mediaWiki.getToken(TokenType.EDIT);
+        Assert.assertNotNull(token);
+        Assert.assertTrue(!token.isEmpty());
     }
 
     @Test

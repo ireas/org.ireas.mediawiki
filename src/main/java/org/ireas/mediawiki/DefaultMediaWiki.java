@@ -43,6 +43,7 @@ import org.apache.http.util.EntityUtils;
 import org.ireas.mediawiki.data.DefaultMediaWikiData;
 import org.ireas.mediawiki.data.DefaultUserData;
 import org.ireas.mediawiki.data.MediaWikiData;
+import org.ireas.mediawiki.data.TokenType;
 import org.ireas.mediawiki.data.UserData;
 import org.ireas.mediawiki.exceptions.HttpMediaWikiException;
 import org.ireas.mediawiki.exceptions.MediaWikiException;
@@ -237,6 +238,22 @@ public final class DefaultMediaWiki implements MediaWiki {
     @Override
     public MediaWikiData getMediaWikiData() {
         return mediaWikiData;
+    }
+
+    @Override
+    public String getToken(final TokenType type) throws MediaWikiException {
+        Preconditions.checkNotNull(type);
+
+        Map<String, String> arguments = new HashMap<>();
+        arguments.put(ApiConstants.TOKENS_TYPE, type.getValue());
+
+        JSONObject result =
+                performJsonRequest(ApiConstants.ACTION_TOKENS, arguments);
+        String tokenResultKey =
+                String.format(ApiConstants.RESULT_TOKENS, type.getValue());
+        MediaWikiUtils.requireJsonFields(result, tokenResultKey);
+        String token = result.getString(tokenResultKey);
+        return token;
     }
 
     @Override
