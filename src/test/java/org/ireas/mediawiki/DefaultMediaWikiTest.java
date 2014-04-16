@@ -152,4 +152,19 @@ public class DefaultMediaWikiTest {
         mediaWiki.getUserData(USER_NAME_MISSING);
     }
 
+    @Test
+    public void testLogin() throws MediaWikiException {
+        // mediaWiki.login("ValidUserName", "ValidPassword");
+    }
+
+    @Test(expected = NoSuchUserException.class)
+    public void testLoginNoSuchUser() throws MediaWikiException {
+        mediaWiki.login(USER_NAME_MISSING, "blubb");
+    }
+
+    @Test(expected = MediaWikiException.class)
+    public void testLoginWrongPassword() throws MediaWikiException {
+        mediaWiki.login(USER_NAME, "blubb");
+    }
+
 }

@@ -47,6 +47,7 @@ import org.ireas.mediawiki.data.UserData;
 import org.ireas.mediawiki.exceptions.HttpMediaWikiException;
 import org.ireas.mediawiki.exceptions.MediaWikiException;
 import org.ireas.mediawiki.exceptions.NoSuchUserException;
+import org.ireas.mediawiki.exceptions.WrongPasswordException;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.json.JSONArray;
@@ -269,6 +270,65 @@ public final class DefaultMediaWiki implements MediaWiki {
                 MediaWikiUtils.parseApiTimestamp(registrationString);
 
         return new DefaultUserData(userName, userId, registrationDate);
+    }
+
+    private void handleLoginResult(final String result, final String user)
+            throws MediaWikiException {
+        if (result.equals(ApiConstants.RESULT_LG_NOT_EXISTS)) {
+            throw new NoSuchUserException(user);
+        } else if (result.equals(ApiConstants.RESULT_LG_WRONG_PASS)) {
+            throw new WrongPasswordException();
+        } else if (!result.equals(ApiConstants.RESULT_LG_SUCCESS)) {
+            throw new MediaWikiException(result);
+        }
+    }
+
+    @Override
+    public void login(final String user, final String password)
+            throws MediaWikiException {
+        Preconditions.checkNotNull(user);
+        Preconditions.checkNotNull(password);
+        Preconditions.checkArgument(!user.isEmpty());
+        Preconditions.checkArgument(!password.isEmpty());
+
+        Map<String, String> arguments = new HashMap<>();
+        arguments.put(ApiConstants.LG_NAME, user);
+        arguments.put(ApiConstants.LG_PASSWORD, password);
+
+        JSONObject result =
+                performJsonRequest(ApiConstants.ACTION_LOGIN, arguments);
+        MediaWikiUtils.requireJsonFields(result, ApiConstants.RESULT_LG_RESULT);
+        String loginResult = result.getString(ApiConstants.RESULT_LG_RESULT);
+        if (loginResult.equals(ApiConstants.RESULT_LG_NEED_TOKEN)) {
+            MediaWikiUtils.requireJsonFields(result,
+                    ApiConstants.RESULT_LG_TOKEN);
+            String token = result.getString(ApiConstants.RESULT_LG_TOKEN);
+            login(user, password, token);
+        } else {
+            handleLoginResult(loginResult, user);
+        }
+    }
+
+    @Override
+    public void login(final String user, final String password,
+            final String token) throws MediaWikiException {
+        Preconditions.checkNotNull(user);
+        Preconditions.checkNotNull(password);
+        Preconditions.checkNotNull(token);
+        Preconditions.checkArgument(!user.isEmpty());
+        Preconditions.checkArgument(!password.isEmpty());
+        Preconditions.checkArgument(!token.isEmpty());
+
+        Map<String, String> arguments = new HashMap<>();
+        arguments.put(ApiConstants.LG_NAME, user);
+        arguments.put(ApiConstants.LG_PASSWORD, password);
+        arguments.put(ApiConstants.LG_TOKEN, token);
+
+        JSONObject result =
+                performJsonRequest(ApiConstants.ACTION_LOGIN, arguments);
+        MediaWikiUtils.requireJsonFields(result, ApiConstants.RESULT_LG_RESULT);
+        String loginResult = result.getString(ApiConstants.RESULT_LG_RESULT);
+        handleLoginResult(loginResult, user);
     }
 
     @Override

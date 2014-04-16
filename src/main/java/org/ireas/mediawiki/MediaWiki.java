@@ -32,6 +32,7 @@ import org.ireas.mediawiki.exceptions.HttpMediaWikiException;
 import org.ireas.mediawiki.exceptions.InvalidResponseException;
 import org.ireas.mediawiki.exceptions.MediaWikiException;
 import org.ireas.mediawiki.exceptions.NoSuchUserException;
+import org.ireas.mediawiki.exceptions.WrongPasswordException;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.json.JSONObject;
@@ -197,6 +198,46 @@ public interface MediaWiki extends Closeable {
      * @throws NullPointerException if the specified user is null
      */
     UserData getUserData(String user) throws MediaWikiException;
+
+    /**
+     * Logs in as the specified user using the specified password.  It is
+     * strongly recommended to use this method only on SSL connections.  If
+     * required, this method gets a login token and then uses the {@link
+     * #login(String, String, String) login} method to authenticate.
+     *
+     * @param user the name of the user to login
+     * @param password the password of the user to login
+     * @throws NoSuchUserException if there is no user with the specified name
+     * @throws WrongPasswordException if the specified password is wrong
+     * @throws InvalidResponseException if the API response cannot be parsed
+     * @throws HttpMediaWikiException if an HTTP error occurs
+     * @throws MediaWikiException if an error occurs during the request
+     * @throws NullPointerException if the specified user or password is null
+     * @throws IllegalArgumentException if the specified user or password is
+     *         empty
+     */
+    void login(String user, String password) throws MediaWikiException;
+
+    /**
+     * Logs in as the specified user using the specified password and the
+     * specified login token.  It is strongly recommended to use this method
+     * only on SSL connections.  Usually this method is called by the {@link
+     * #login(String, String) login} method if a token is required.
+     *
+     * @param user the name of the user to login
+     * @param password the password of the user to login
+     * @param token the login token for the user
+     * @throws NoSuchUserException if there is no user with the specified name
+     * @throws WrongPasswordException if the specified password is wrong
+     * @throws InvalidResponseException if the API response cannot be parsed
+     * @throws HttpMediaWikiException if an HTTP error occurs
+     * @throws MediaWikiException if an error occurs during the request
+     * @throws NullPointerException if the specified user or password is null
+     * @throws IllegalArgumentException if the specified user or password is
+     *         empty
+     */
+    void login(String user, String password, String token)
+            throws MediaWikiException;
 
     /**
      * Performs an API request on the specified action using the specified

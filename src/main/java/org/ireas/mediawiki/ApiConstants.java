@@ -37,6 +37,11 @@ public final class ApiConstants {
     public static final String ACTION = "action";
 
     /**
+     * Name of the action {@code login}.
+     */
+    public static final String ACTION_LOGIN = "login";
+
+    /**
      * Name of the action {@code query}.
      */
     public static final String ACTION_QUERY = "query";
@@ -50,6 +55,21 @@ public final class ApiConstants {
      * Name of the format {@code json}.
      */
     public static final String FORMAT_JSON = "json";
+
+    /**
+     * Name of the parameter {@code lgname}.
+     */
+    public static final String LG_NAME = "lgname";
+
+    /**
+     * Name of the parameter {@code lgpassword}.
+     */
+    public static final String LG_PASSWORD = "lgpassword";
+
+    /**
+     * Name of the parameter {@code lgtoken}.
+     */
+    public static final String LG_TOKEN = "lgtoken";
 
     /**
      * Name of the parameter {@code list}.
@@ -75,6 +95,36 @@ public final class ApiConstants {
      * Key of the result field {@code error.code}.
      */
     public static final String RESULT_ERROR_CODE = "code";
+
+    /**
+     * Key of the result field {@code login.result}.
+     */
+    public static final String RESULT_LG_RESULT = "result";
+
+    /**
+     * Login result value {@code NeedToken}.
+     */
+    public static final String RESULT_LG_NEED_TOKEN = "NeedToken";
+
+    /**
+     * Login result value {@code NotExists}.
+     */
+    public static final String RESULT_LG_NOT_EXISTS = "NotExists";
+
+    /**
+     * Login result value {@code Success}.
+     */
+    public static final String RESULT_LG_SUCCESS = "Success";
+
+    /**
+     * Login result value {@code WrongPass}.
+     */
+    public static final String RESULT_LG_WRONG_PASS = "WrongPass";
+
+    /**
+     * Key of the result field {@code login.token}.
+     */
+    public static final String RESULT_LG_TOKEN = "token";
 
     /**
      * Key of the result field {@code usercontribs}.
