@@ -78,7 +78,7 @@ public final class DefaultMediaWiki implements MediaWiki {
 
     /**
      * Constructs a new MediaWiki instance for the MediaWiki installation
-     * representend by the specified MediaWiki data and using the specified
+     * represented by the specified MediaWiki data and using the specified
      * configuration.  It is recommended to use the {@link MediaWikiFactory}
      * instead of this constructor.
      *

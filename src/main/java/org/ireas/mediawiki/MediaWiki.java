@@ -56,6 +56,10 @@ import com.google.common.base.Optional;
  *   </thead>
  *   <tbody>
  *     <tr>
+ *       <td>{@code action=login}</td>
+ *       <td>{@code login}</td>
+ *     </tr>
+ *     <tr>
  *       <td>{@code action=query&list=usercontribs} (counts)</td>
  *       <td>{@code getContribCount}</td>
  *     </tr>
@@ -68,6 +72,9 @@ import com.google.common.base.Optional;
  *       <td>{@code getUserData}</td>
  *     </tr>
  *     <tr>
+ *       <td>{@code action=tokens}</td>
+ *       <td>{@code getToken}</td>
+ *     </tr>
  *   </tbody>
  * </table>
  *
