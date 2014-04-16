@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-package org.ireas.mediawiki;
+package org.ireas.mediawiki.data;
 
 import com.google.common.base.Preconditions;
 

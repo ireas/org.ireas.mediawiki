@@ -43,6 +43,7 @@ import org.apache.http.util.EntityUtils;
 import org.ireas.mediawiki.data.DefaultMediaWikiData;
 import org.ireas.mediawiki.data.DefaultUserData;
 import org.ireas.mediawiki.data.MediaWikiData;
+import org.ireas.mediawiki.data.Namespace;
 import org.ireas.mediawiki.data.TokenType;
 import org.ireas.mediawiki.data.UserData;
 import org.ireas.mediawiki.exceptions.HttpMediaWikiException;

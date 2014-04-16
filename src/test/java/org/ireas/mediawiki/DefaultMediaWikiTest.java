@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
+import org.ireas.mediawiki.data.Namespace;
 import org.ireas.mediawiki.data.TokenType;
 import org.ireas.mediawiki.data.UserData;
 import org.ireas.mediawiki.exceptions.MediaWikiException;
