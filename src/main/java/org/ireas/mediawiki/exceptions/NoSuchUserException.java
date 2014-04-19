@@ -22,8 +22,6 @@
 
 package org.ireas.mediawiki.exceptions;
 
-import javax.annotation.Nullable;
-
 import com.google.common.base.Preconditions;
 
 /**
@@ -44,7 +42,7 @@ public final class NoSuchUserException extends MediaWikiException {
      * @param userName the name of the missing user
      * @throws NullPointerException if the specified user name is null
      */
-    public NoSuchUserException(@Nullable final String userName) {
+    public NoSuchUserException(final String userName) {
         super(String.format("No such user: %s", userName));
 
         Preconditions.checkNotNull(userName);
