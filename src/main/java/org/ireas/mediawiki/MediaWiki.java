@@ -261,6 +261,16 @@ public interface MediaWiki extends Closeable {
             throws MediaWikiException;
 
     /**
+     * Logs out from the MediaWiki API.  The method does not check whether the
+     * user is already logged in or not.  It just sends the logout query to
+     * the MediaWiki API and ignores the result.
+     * 
+     * @throws HttpMediaWikiException if an HTTP error occurs
+     * @throws MediaWikiException if an error occurs during the request
+     */
+    void logout() throws MediaWikiException;
+
+    /**
      * Performs an API request on the specified action using the specified
      * arguments and returns the action result.  This method uses the JSON
      * format.  (This format cannot be overwritten by the values in the

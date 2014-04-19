@@ -42,6 +42,11 @@ public final class ApiConstants {
     public static final String ACTION_LOGIN = "login";
 
     /**
+     * Name of the action {@code logout}.
+     */
+    public static final String ACTION_LOGOUT = "logout";
+
+    /**
      * Name of the action {@code query}.
      */
     public static final String ACTION_QUERY = "query";
@@ -176,6 +181,8 @@ public final class ApiConstants {
      * Separator symbol for parameter values.
      */
     public static final String SEPARATOR = "|";
+
+    public static final String TITLES = "titles";
 
     /**
      * Name of the token type {@code block}.

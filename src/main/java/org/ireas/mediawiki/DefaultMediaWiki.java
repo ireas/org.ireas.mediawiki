@@ -350,6 +350,13 @@ public final class DefaultMediaWiki implements MediaWiki {
     }
 
     @Override
+    public void logout() throws MediaWikiException {
+        Map<String, String> arguments = new HashMap<>();
+        arguments.put(ApiConstants.ACTION, ApiConstants.ACTION_LOGOUT);
+        performRequest(arguments);
+    }
+
+    @Override
     public JSONObject performJsonRequest(final String action,
             final Map<String, String> arguments) throws MediaWikiException {
         Preconditions.checkNotNull(action);
