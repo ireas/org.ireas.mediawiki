@@ -182,8 +182,6 @@ public final class ApiConstants {
      */
     public static final String SEPARATOR = "|";
 
-    public static final String TITLES = "titles";
-
     /**
      * Name of the token type {@code block}.
      */
